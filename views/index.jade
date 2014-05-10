@@ -1,5 +1,7 @@
 extends layout
 
+include includes/article
+
 block content
   main
     aside
@@ -26,12 +28,15 @@ block content
         input#search.col-md-2
       section.row
         .column.col-md-4
-          include includes/article1
+          //include includes/article1
+          each article in columns[0]
+            mixin display_article(article)
         .column.col-md-4
-          include includes/article2
+          each article in columns[1]
+            mixin display_article(article)
         .column.col-md-4
-          include includes/article3
-    
+          each article in columns[2]
+            mixin display_article(article)
 
   script.
     $("[id^='news_']").children("span").click(function(){

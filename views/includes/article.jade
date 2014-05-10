@@ -1,0 +1,7 @@
+mixin display_article(article)
+  article
+    h1= article.title
+    .article_content
+      !{article.content}
+    p
+      !{article.link}
