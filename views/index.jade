@@ -16,16 +16,17 @@ block content
       span Asian
       span Europe
       span America
-  header
-    ul#filter
-      li BBC
-      li 1 year
-      li Taiwan
-    input#search
   main
-    article Article 1
-    article Article 2
-    article Article 3
+    header
+      ul#filter
+        li BBC
+        li 1 year
+        li Taiwan
+      input#search
+    section
+      article Article 1
+      article Article 2
+      article Article 3
   script.
     $("[id^='news_']").children("span").click(function(){
       var span = $(this);
