@@ -5,7 +5,7 @@ body {
   background-color: #F4F4F4;
 }
 /*網頁的連結設定*/
-a {
+a { 
   color: #FFF;
   text-decoration: none; /*因為預設為有底線 所以設為none消除底線*/
 } 
@@ -14,39 +14,37 @@ a:hover {
   color: #d3d5d5;
   text-decoration: none; 
 }
-ul#filter{
-height: 80px;
-}
+ul#filter{ height: 10%; }
 header{
   font-weight: bolder;
   background-color: #FFF;
   margin-bottom: -20%;
   top: 0px;
+  left: 0px;
   height: 15%;
   position: fixed;
-  width:80%;
+  width:87%;
   overflow-x: auto;
-  z-index:100;
-}
-header ul{
-   font-size: 20px;
+  z-index:100; /*和層次有關*/    
+  font-size: 20px;
+   
+  /*box shadow*/
+  -moz-box-shadow: 0 8px 10px -6px #8497AF; 
+  -webkit-box-shadow: 0 8px 10px -6px #8497AF ;
+  box-shadow: 0 8px 10px -6px #8497AF ;
+
 }
 header li{
   display: inline-block;
-  line-height: 80px;
-  margin-left: 25px; /*block置中*/
+  line-height: 70px;
+  margin-left: 10px; /*block置中*/
   text-indent: 25px;
-  
 }
-header input{
-  margin-top: 20px;
-
-  /*padding-top: 50px;*/
-}
+header input{ margin-top: 20px;}
 /* aside 右手邊框框*/
 aside {
-  background-color: #C87C5B;
-  font-size: 20px;
+  background-color: rgba(18, 119, 119, 0.76);
+  font-size: 22px;
   margin-left: -20%;
   top: 0px;
   right: 0px;
@@ -64,35 +62,36 @@ main {
 #content {
   width: 80%;
   padding-left: 5%
-
 }
 section
 {
   margin-top: 10%;
+  /*border: 2px solid;*/ 
+  font-size: 20px;
 }
 #logo{
-  width: 150px;
-  margin: 20px;
+  width: 165px;
+  margin: 15px;
   border-radius: 10px;
 }
+
 aside span{
- color: #FFF;
+ color: rgba(180, 245, 239, 0.8);
  width: 120px;
  margin-left: 15px;
  display: block; 
+ font-size: 18px;
 }
+
 #news_source, #news_date, #news_location{
   padding:10px 0px 10px;
-  color: #330000;
+  color: #0D3453;
   margin-left: 5px;
 }
 
-
-
 .is-clicked{
- 
- border: 1px solid #FFBB7D;
+ border: 2px solid #28D19B;
  border-radius: 5px;
  font-weight: bolder;
- color:#FFAC62;
+ color:#FFF;
 }
