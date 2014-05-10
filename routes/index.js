@@ -62,7 +62,8 @@ router.get('/list.json', function(req, res) {
   if (req.query.content) {
     query = query.and({ content: new RegExp(req.query.content, "i") });
   }
-  query.exec(function(err, articles) {
+  query.sort({ "time": -1 })
+       .exec(function(err, articles) {
     if (err) {
       console.error(err);
       res.json({error: err.name}, 500);
