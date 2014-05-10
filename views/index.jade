@@ -59,7 +59,12 @@ block content
         } else if ($(this).hasClass("news_location")) {
           attr = "locations";
         }
-        params[attr] = $(this).text();
+        if (params[attr]) {
+          params[attr] = [params[attr]];
+          params[attr].push($(this).text());
+        } else {
+          params[attr] = $(this).text();
+        }
       });
       updateNews(params);
     }
