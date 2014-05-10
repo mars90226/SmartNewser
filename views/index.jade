@@ -26,3 +26,19 @@ block content
     article Article 1
     article Article 2
     article Article 3
+  script.
+    $("[id^='news_']").children("span").click(function(){
+      var span = $(this);
+      if (span.hasClass("is-clicked")) {
+        span.removeClass("is-clicked");
+        $("#filter > li").each(function(){
+          var li = $(this);
+          if (li.text() === span.text()) {
+            li.remove();
+          }
+        });
+      } else {
+        span.addClass("is-clicked");
+        $("<li>" + span.text() + "</li>").appendTo("#filter");
+      }
+    });
