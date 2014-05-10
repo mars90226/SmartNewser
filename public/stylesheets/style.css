@@ -1,9 +1,7 @@
 @charset utf-8; /*如果會用到中文*/
 
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  text-align: center;
   background-color: #F4F4F4;
 }
 /*網頁的連結設定*/
@@ -11,25 +9,83 @@ a {
   color: #FFF;
   text-decoration: none; /*因為預設為有底線 所以設為none消除底線*/
 } 
-#logo{
-
-  width:60px;
-}
-
 /*超連結 滑鼠移過去時的樣式*/
 a:hover {
   color: #d3d5d5;
   text-decoration: none; 
 }
+
+ul#filter{
+height: 80px;
+}
+header{
+ color: #9fa2a2;
+  margin-left: auto; /*block置中*/
+  margin-right: auto;
+  font-weight: bolder;
+}
+header ul{
+   height: 60px;
+}
+
+header li{
+  display: inline-block;
+  width: 80px;
+  margin-left: 25px; /*block置中*/
+}
+header input{}
+
+
 /* aside 右手邊框框*/
 aside {
   background-color: #886e9e;
   color: #FFF;
   font-size: 20px;
-  height: 167px;
-  margin-top:80px;
-  margin-top: 33px; /*自訂*/
-  margin-bottom: 43px; /*自訂*/
-  margin-left: auto; /*block置中*/
-  margin-right: auto;
+  margin-left: -20%;
+  right: 0px;
+  width: 15%;
+  background: #000;
+  position: fixed;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 1000;
+  transition: all 0.4s ease 0s;
+}
+
+main {
+  position: relative;
+}
+
+#content {
+  width: 80%;
+  padding-left: 5%
+}
+
+#logo{
+  width:60px;
+}
+#news_source{
+ height: 150px;
+ width: 120px;
+}
+#news_source span{
+ height: 35px;
+ width: 120px;
+ display: block;
+}
+#news_date{
+ height: 150px;
+ width: 120px;
+}
+#news_date span{
+ display: block;
+}
+
+#news_location{
+  height: 150px;
+ width: 120px;
+}
+#news_location span
+{
+ display: block;
 }
