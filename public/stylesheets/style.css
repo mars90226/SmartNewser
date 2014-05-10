@@ -1,7 +1,7 @@
 @charset utf-8; /*如果會用到中文*/
 
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #F4F4F4;
 }
 /*網頁的連結設定*/
@@ -14,44 +14,49 @@ a:hover {
   color: #d3d5d5;
   text-decoration: none; 
 }
-
 ul#filter{
 height: 80px;
 }
 header{
- color: #9fa2a2;
-  margin-left: auto; /*block置中*/
-  margin-right: auto;
   font-weight: bolder;
+  background-color: #FFF;
+  margin-bottom: -20%;
+  top: 0px;
+  height: 15%;
+  position: fixed;
+  width:80%;
+  overflow-x: auto;
+  z-index:100;
 }
 header ul{
-   height: 60px;
+   font-size: 20px;
 }
-
 header li{
   display: inline-block;
-  width: 80px;
+  line-height: 80px;
   margin-left: 25px; /*block置中*/
+  text-indent: 25px;
+  
 }
-header input{}
+header input{
+  margin-top: 20px;
 
-
+  /*padding-top: 50px;*/
+}
 /* aside 右手邊框框*/
 aside {
-  background-color: #886e9e;
-  color: #FFF;
+  background-color: #C87C5B;
   font-size: 20px;
   margin-left: -20%;
+  top: 0px;
   right: 0px;
   width: 15%;
-  background: #000;
   position: fixed;
   height: 100%;
   overflow-y: auto;
   z-index: 1000;
   transition: all 0.4s ease 0s;
 }
-
 main {
   position: relative;
 }
@@ -59,33 +64,35 @@ main {
 #content {
   width: 80%;
   padding-left: 5%
-}
 
-#logo{
-  width:60px;
 }
-#news_source{
- height: 150px;
- width: 120px;
-}
-#news_source span{
- height: 35px;
- width: 120px;
- display: block;
-}
-#news_date{
- height: 150px;
- width: 120px;
-}
-#news_date span{
- display: block;
-}
-
-#news_location{
-  height: 150px;
- width: 120px;
-}
-#news_location span
+section
 {
- display: block;
+  margin-top: 10%;
+}
+#logo{
+  width: 150px;
+  margin: 20px;
+  border-radius: 10px;
+}
+aside span{
+ color: #FFF;
+ width: 120px;
+ margin-left: 15px;
+ display: block; 
+}
+#news_source, #news_date, #news_location{
+  padding:10px 0px 10px;
+  color: #330000;
+  margin-left: 5px;
+}
+
+
+
+.is-clicked{
+ 
+ border: 1px solid #FFBB7D;
+ border-radius: 5px;
+ font-weight: bolder;
+ color:#FFAC62;
 }

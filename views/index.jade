@@ -6,15 +6,18 @@ block content
   main
     aside
       img#logo(alt="icon", src="images/logo.jpg")
-      #news_resource
+      #news_source
+        | Source
         span BBC
         span CNN
       #news_date
+        | Date
         span 1 day
         span 1 week
         span 1 month
         span 1 year
       #news_location
+        | Location
         span Taiwan
         span Asian
         span Europe
@@ -25,7 +28,7 @@ block content
           li BBC
           li 1 year
           li Taiwan
-        input#search.col-md-2
+        input#search.col-md-2(placeholder="Search")
       section.row
         .column.col-md-4
           //include includes/article1
