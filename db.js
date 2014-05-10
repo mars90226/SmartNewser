@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://10.5.3.25/SmartNewser');
+mongoose.connect('mongodb://localhost/SmartNewser');
 
 mongoose.connection.on('error', function(err) {
   console.log(err);
