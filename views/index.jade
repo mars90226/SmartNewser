@@ -1,22 +1,8 @@
 extends layout
 
 block content
-  main.row
-    #content.col-md-10
-      header.row
-        ul#filter.col-md-offset-1.col-md-8
-          li BBC
-          li 1 year
-          li Taiwan
-        input#search.col-md-2
-      section.row
-        .column.col-md-4
-          include includes/article1
-        .column.col-md-4
-          include includes/article2
-        .column.col-md-4
-          include includes/article3
-    aside.col-md-2
+  main
+    aside
       img#logo(alt="icon", src="images/logo.jpg")
       #news_resource
         span BBC
@@ -31,6 +17,21 @@ block content
         span Asian
         span Europe
         span America
+    #content
+      header.row
+        ul#filter.col-md-offset-1.col-md-8
+          li BBC
+          li 1 year
+          li Taiwan
+        input#search.col-md-2
+      section.row
+        .column.col-md-4
+          include includes/article1
+        .column.col-md-4
+          include includes/article2
+        .column.col-md-4
+          include includes/article3
+    
 
   script.
     $("[id^='news_']").children("span").click(function(){
