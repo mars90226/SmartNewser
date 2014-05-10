@@ -1,9 +1,23 @@
 extends layout
 
 block content
-  main
-    aside
-      img(alt="icon")
+  main.row
+    #content.col-md-10
+      header.row
+        ul#filter.col-md-offset-1.col-md-8
+          li BBC
+          li 1 year
+          li Taiwan
+        input#search.col-md-2
+      section.row
+        .column.col-md-4
+          article Article 1
+        .column.col-md-4
+          article Article 2
+        .column.col-md-4
+          article Article 3
+    aside.col-md-2
+      img#logo(alt="icon", src="images/logo.jpg")
       #news_resource
         span BBC
         span CNN
@@ -17,17 +31,7 @@ block content
         span Asian
         span Europe
         span America
-    #content
-      header
-        ul#filter
-          li BBC
-          li 1 year
-          li Taiwan
-        input#search
-      section
-        article Article 1
-        article Article 2
-        article Article 3
+   
   script.
     $("[id^='news_']").children("span").click(function(){
       var span = $(this);
