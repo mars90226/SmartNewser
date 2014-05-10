@@ -59,13 +59,16 @@ router.get('/list.json', function(req, res) {
       query = query.and([location_query]);
     }
   }
+  if (req.query.content) {
+    query = query.and({ content: new RegExp(req.query.content, "i") });
+  }
   query.exec(function(err, articles) {
     if (err) {
       console.error(err);
       res.json({error: err.name}, 500);
     }
 
-    res.json({articles: articles});
+    res.json(articles);
   });
 });
 

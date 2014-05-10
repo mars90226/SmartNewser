@@ -10,6 +10,7 @@ block content
         | Source
         span BBC
         span CNN
+        span udn
       #news_date
         | Date
         span 1 day
@@ -39,18 +40,65 @@ block content
             mixin display_article(article)
 
   script.
+    function removeFilter(text) {
+      $("#filter > li").each(function(){
+        var li = $(this);
+        if (li.text() === text) {
+          li.remove();
+        }
+      });
+    }
+    function filterNews() {
+      var params = {};
+      $("#filter > li").each(function() {
+        var attr;
+        if ($(this).hasClass("news_source")) {
+          attr = "source";
+        } else if ($(this).hasClass("news_date")) {
+          attr = "date";
+        } else if ($(this).hasClass("news_location")) {
+          attr = "locations";
+        }
+        params[attr] = $(this).text();
+      });
+      updateNews(params);
+    }
+    function updateNews(params) {
+      $.getJSON("/list.json?" + $.param(params), function(articles) {
+        $(".column > *").remove();
+        var columns = [[], [], []];
+        for (var i in articles) {
+          columns[i % 3].push(articles[i]);
+        }
+        $(".column").each(function(i) {
+          for (var j in columns[i]) {
+            var article = columns[i][j];
+            $("<article><h1>" + article.title + "</h1><div class=\"article_content\">" + article.content + "</div><p>" + article.link + "</p></article>").appendTo($(this));
+          }
+        })
+      });
+    }
     $("[id^='news_']").children("span").click(function(){
       var span = $(this);
       if (span.hasClass("is-clicked")) {
         span.removeClass("is-clicked");
-        $("#filter > li").each(function(){
-          var li = $(this);
-          if (li.text() === span.text()) {
-            li.remove();
-          }
-        });
+        removeFilter(span.text());
       } else {
+        if ($(this).parent().is("#news_date")) {
+          $("#news_date > span").each(function() {
+            var span = $(this);
+            span.removeClass("is-clicked");
+            removeFilter(span.text());
+          });
+        }
         span.addClass("is-clicked");
-        $("<li>" + span.text() + "</li>").appendTo("#filter");
+        $("<li>" + span.text() + "</li>").addClass(span.parent().attr("id"))
+                                         .appendTo("#filter");
       }
+      filterNews();
+    });
+    $("#search").on('keyup', function(e) {
+      if (e.which === 13) {
+        updateNews({ content: $(this).val() });
+      } 
     });
