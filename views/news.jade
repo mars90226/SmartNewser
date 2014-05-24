@@ -1,0 +1,10 @@
+extends layout
+
+include includes/sidebar
+include includes/article
+
+block content
+  main
+    mixin sidebarWithoutFilters
+    #content
+      mixin display_article(article)

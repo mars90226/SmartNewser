@@ -95,3 +95,8 @@ aside span{
  font-weight: bolder;
  color:#FFF;
 }
+
+a.news_link, a.news_link:hover, a.news_link:visited, a.news_link:active, a.news_link:focus {
+  text-decoration: none;
+  color: #000;
+}

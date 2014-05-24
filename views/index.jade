@@ -1,45 +1,31 @@
 extends layout
 
+include includes/sidebar
 include includes/article
 
 block content
   main
-    aside
-      img#logo(alt="icon", src="images/logo.jpg")
-      #news_source
-        | Source
-        span BBC
-        span CNN
-        span udn
-      #news_date
-        | Date
-        span 1 day
-        span 1 week
-        span 1 month
-        span 1 year
-      #news_location
-        | Location
-        span Taiwan
-        span Asian
-        span Europe
-        span America
+    mixin sidebar(builtinFilters)
     #content
       header.row
         ul#filter.col-md-offset-1.col-md-8
+          each contents, type in filters
+            if typeof contents === 'string'
+              - contents = [contents]
+            each content in contents
+              li(class = "news_" + type)= content
         input#search.col-md-2(placeholder="Search")
       section.row
-        .column.col-md-4
-          //include includes/article1
-          each article in columns[0]
-            mixin display_article(article)
-        .column.col-md-4
-          each article in columns[1]
-            mixin display_article(article)
-        .column.col-md-4
-          each article in columns[2]
-            mixin display_article(article)
+        // 3 columns
+        each _, index in [0, 1, 2]
+          .column.col-md-4
+            each article in columns[index]
+              mixin display_brief_article(article)
 
   script.
+    function addFilter(text, klass) {
+      $("<li>" + text + "</li>").addClass(klass).appendTo("#filter");
+    }
     function removeFilter(text) {
       $("#filter > li").each(function(){
         var li = $(this);
@@ -60,7 +46,9 @@ block content
           attr = "locations";
         }
         if (params[attr]) {
-          params[attr] = [params[attr]];
+          if (typeof params[attr] === 'string') {
+            params[attr] = [params[attr]];
+          }
           params[attr].push($(this).text());
         } else {
           params[attr] = $(this).text();
@@ -78,7 +66,7 @@ block content
         $(".column").each(function(i) {
           for (var j in columns[i]) {
             var article = columns[i][j];
-            $("<article><h1>" + article.title + "</h1><div class=\"article_content\">" + article.content + "</div><p>" + article.link + "</p></article>").appendTo($(this));
+            $("<a class=\"news_link\" href=\"/news/" + article._id + "\"><article><h1>" + article.title + "</h1><div class=\"article_content\">" + article.content + "</div><p>" + article.link + "</p></article></a>").appendTo($(this));
           }
         })
       });
@@ -97,8 +85,7 @@ block content
           });
         }
         span.addClass("is-clicked");
-        $("<li>" + span.text() + "</li>").addClass(span.parent().attr("id"))
-                                         .appendTo("#filter");
+        addFilter(span.text(), span.parent().attr("id"));
       }
       filterNews();
     });

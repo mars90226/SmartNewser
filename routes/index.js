@@ -1,75 +1,89 @@
 var express = require('express');
 var router = express.Router();
+var async = require('async');
 var mongoose = require('mongoose');
 var Article = mongoose.model('Article');
+var Filter = mongoose.model('Filter');
+var article = require('../models/article');
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  var query = Article.find().sort({'time': -1}).limit(20);
-  query.exec(function(err, articles, count) {
-    if (err) {
-      console.error(err);
-    }
-    var columns = [[], [], []];
-    for (var i in articles) {
-      columns[i % 3].push(articles[i]);
-    }
-    res.render('index', { columns: columns });
-  });
+  async.series([
+    function(callback) {
+      var queryFilters = {};
+      Filter.distinct('type', function(err, types) {
+        if (err) console.error(err);
+        Filter.find(function(err, filters) {
+          if (err) console.error(err);
+          for (var i in types) {
+            var queries = req.query[types[i]] || [];
+            if (typeof queries === 'string') {
+              queries = [queries];
+            }
+            for (var j in queries) {
+              var isFilter = false;
+              for (var k in filters) {
+                if (filters[k].content === queries[j] &&
+                    filters[k].type === types[i]) {
+                  isFilter = true;
+                }
+              }
+              if (isFilter) {
+                if (queryFilters[types[i]]) {
+                  if (typeof queryFilters[types[i]] === 'string') {
+                    queryFilters[types[i]] = [queryFilters[types[i]]]
+                  }
+                  queryFilters[types[i]].push(queries[j]);
+                } else {
+                  queryFilters[types[i]] = queries[j];
+                }
+              }
+            }
+          }
+          callback(null, queryFilters);
+        });
+      });
+    }], function(err, results){
+      var queryFilters = results[0];
+      //var query = Article.find().sort({'time': -1}).limit(20);
+      article.select(queryFilters, function(err, articles) {
+        if (err) console.error(err);
+        var columns = [[], [], []];
+        for (var i in articles) {
+          columns[i % 3].push(articles[i]);
+        }
+        Filter.find(function(err, filters) {
+          if (err) console.error(err);
+          res.render('index', {
+            columns: columns,
+            builtinFilters: filters,
+            filters: queryFilters
+          });
+        });
+      });
+    });
 });
 
 /* GET news list */
 router.get('/list.json', function(req, res) {
-  var query = Article.find();
-  if (req.query.source) {
-    if (typeof req.query.source === "string") {
-      query = query.where('source').equals(req.query.source);
-    } else {
-      query = query.where('source').in(req.query.source);
-    }
-  }
-  if (req.query.time) {
-    var date = new Date();
-    switch(req.query.time) {
-      case "1 day":
-        date.setDate(date.getDate() - 1);
-        break;
-      case "1 week":
-        date.setDate(date.getDate() - 7);
-        break;
-      case "1 month":
-        date.setMonth(date.getMonth() - 1);
-        break;
-      case "1 year":
-        date.setFullYear(date.getFullYear() - 1);
-        break;
-    }
-    query = query.where('time').gt(date);
-  }
-  if (req.query.locations) {
-    if (typeof req.query.locations === "string") {
-      query = query.and([{ locations: req.query.locations }]);
-    } else {
-      var location_query = { $or: [] };
-      for (var i in req.query.locations) {
-        location_query["$or"].push({
-          locations: req.query.locations[i]
-        });
-      }
-      query = query.and([location_query]);
-    }
-  }
-  if (req.query.content) {
-    query = query.and({ content: new RegExp(req.query.content, "i") });
-  }
-  query.sort({ "time": -1 })
-       .exec(function(err, articles) {
+  article.select(req.query, function(err, articles) {
     if (err) {
       console.error(err);
       res.json({error: err.name}, 500);
     }
 
     res.json(articles);
+  });
+});
+
+
+/* GET news. */
+router.get('/news/:id(\\d+)', function(req, res) {
+  Article.find({ _id: req.params.id }, function(err, articles) {
+    if (err) console.error(err);
+    res.render('news', {
+      article: articles[0]
+    });
   });
 });
 

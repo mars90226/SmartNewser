@@ -1,0 +1,13 @@
+mixin sidebar(filters)
+  aside
+    img#logo(alt="icon", src="/images/logo.jpg")
+    each filterType in ["source", "date", "location"]
+      div(id = "news_" + filterType)
+        | #{capitalize(filterType)}
+        each filter in filters
+          if filter.type === filterType
+            span= filter.content
+
+mixin sidebarWithoutFilters
+  aside
+    img#logo(alt="icon", src="/images/logo.jpg")
