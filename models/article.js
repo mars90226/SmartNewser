@@ -1,4 +1,5 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    autoIncrement = require('mongoose-auto-increment');
 var Schema = mongoose.Schema;
 
 var ArticleSchema = new Schema({
@@ -10,4 +11,5 @@ var ArticleSchema = new Schema({
   locations: []
 });
 
-var Article = mongoose.model('Article', ArticleSchema, 'Article');
+ArticleSchema.plugin(autoIncrement.plugin, 'Article')
+var Article = mongoose.model('Article', ArticleSchema);
