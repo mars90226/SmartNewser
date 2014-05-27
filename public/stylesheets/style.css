@@ -1,19 +1,31 @@
 @charset utf-8; /*如果會用到中文*/
 
 body {
-  font: "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: "微軟正黑體", "Microsoft JhengHei", "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #F4F4F4;
+ }
+
+.more a{  /* 因為繼續閱讀是個超連結，要用a來定義 */
+display: none;  /* 平常設定不要顯示 */
 }
-/*網頁的連結設定*/
-a { 
-  color: #FFF;
-  text-decoration: none; /*因為預設為有底線 所以設為none消除底線*/
-} 
-/*超連結 滑鼠移過去時的樣式*/
-a:hover {
-  color: #d3d5d5;
-  text-decoration: none; 
+
+/*a.articlea:hover {*/
+article a.news_link:first-child
+{
+  display: block;
+  border: 4px solid;
+  border-radius: 2px;
+  border-color: rgba(0, 0, 0, 0);
 }
+
+article a.news_link:first-child:hover{ /*只有上面部分有框*/
+
+/* 當滑鼠移至該篇文章時，設定以block顯示，可設定超連結以一個區塊顯示 */ 
+border-color: #1B87A2;
+background-color: rgba(20, 138, 175, 0.17);
+}
+ 
+
 ul#filter{ height: 10%; }
 header{
   font-weight: bolder;
@@ -39,8 +51,11 @@ header li{
   line-height: 70px;
   margin-left: 10px; /*block置中*/
   text-indent: 25px;
+
 }
-header input{ margin-top: 20px;}
+header input{ 
+  margin-top: 20px;
+}
 /* aside 右手邊框框*/
 aside {
   background-color: rgba(18, 119, 119, 0.76);
@@ -59,7 +74,7 @@ main {
   position: relative;
 }
 
-#content {
+#content {  /*中間放新聞處*/
   width: 80%;
   padding-left: 5%
 }
@@ -68,6 +83,7 @@ section
   margin-top: 10%;
   /*border: 2px solid;*/ 
   font-size: 20px;
+
 }
 #logo{
   width: 165px;
@@ -95,8 +111,14 @@ aside span{
  font-weight: bolder;
  color:#FFF;
 }
-
+/*網頁的連結設定*/
 a.news_link, a.news_link:hover, a.news_link:visited, a.news_link:active, a.news_link:focus {
   text-decoration: none;
   color: #000;
+}
+/*超連結 滑鼠移過去時的樣式*/
+a.news_link:hover {
+  text-decoration: none; 
+  cursor: url('../images/pointer.jpg'), default;
+  /*註：圖片有限制大小 要在128*128範圍內 */
 }
