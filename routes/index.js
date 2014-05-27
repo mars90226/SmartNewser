@@ -76,15 +76,4 @@ router.get('/list.json', function(req, res) {
   });
 });
 
-
-/* GET news. */
-router.get('/news/:id(\\d+)', function(req, res) {
-  Article.find({ _id: req.params.id }, function(err, articles) {
-    if (err) console.error(err);
-    res.render('news', {
-      article: articles[0]
-    });
-  });
-});
-
 module.exports = router;
