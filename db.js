@@ -1,7 +1,8 @@
 var mongoose = require('mongoose'),
     autoIncrement = require('mongoose-auto-increment');
 
-var connection = mongoose.connect('mongodb://localhost/SmartNewser');
+var mongoUri = process.env.MONGOLAB_URI || 'mongodb://localhost/SmartNewser';
+var connection = mongoose.connect(mongoUri);
 autoIncrement.initialize(connection)
 
 mongoose.connection.on('error', function(err) {

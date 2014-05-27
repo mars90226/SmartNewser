@@ -2,15 +2,14 @@ mixin display_brief_article(article)
   a.news_link(href= "/news/" + article._id)
     article
       h1= article.title
-      .article_content
-        !{article.content}
-      p
-        !{article.link}
+      .article_content!= article.content
+      p!= article.link
 
 mixin display_article(article)
   article
     h1= article.title
-    .article_content
-      !{article.content}
-    p
-      !{article.link}
+    .article_content!= article.content
+    p!= article.link
+    ul.article_locations
+      each location in article.locations
+        li.article_location= location

@@ -8,3 +8,33 @@ block content
     mixin sidebarWithoutFilters
     #content
       mixin display_article(article)
+      .wrap_location
+        label 想要幫這篇新聞標記地點嗎?
+        select#locations
+          each location in locations
+            option= location.content
+        button#add_location 標記
+
+  script.
+    $("#add_location").click(function() {
+      var select = $("#locations");
+      var new_location = select.val();
+      $.post($(location).attr("pathname") + "/add_location/" + new_location, function(response) {
+        if (response.result === "success") {
+          $(".article_locations").append($("<li>" + new_location + "</li>"));
+        }
+      });
+    });
+    $(".article_locations").click(".article_location", function(ev) {
+      var li = $(ev.target);
+      if (confirm("你確定要刪除此地點標記?")) {
+        $.ajax($(location).attr("pathname") + "/location/" + li.index(), {
+          type: "DELETE",
+          success: function(response) {
+            if (response.result === "success") {
+              li.remove();
+            }
+          }
+        })
+      }
+    });
