@@ -8,7 +8,7 @@ block content
     mixin sidebar(builtinFilters)
     #content
       header.row
-        ul#filter.col-md-offset-1.col-md-8
+        ul#filters.col-md-offset-1.col-md-8
           each contents, type in filters
             if typeof contents === 'string'
               - contents = [contents]
@@ -24,10 +24,10 @@ block content
 
   script.
     function addFilter(text, klass) {
-      $("<li>" + text + "</li>").addClass(klass).appendTo("#filter");
+      $("<li>" + text + "</li>").addClass(klass).appendTo("#filters");
     }
     function removeFilter(text) {
-      $("#filter > li").each(function(){
+      $("#filters > li").each(function(){
         var li = $(this);
         if (li.text() === text) {
           li.remove();
@@ -36,7 +36,7 @@ block content
     }
     function filterNews() {
       var params = {};
-      $("#filter > li").each(function() {
+      $("#filters > li").each(function() {
         var attr;
         if ($(this).hasClass("news_source")) {
           attr = "source";
@@ -66,10 +66,17 @@ block content
         $(".column").each(function(i) {
           for (var j in columns[i]) {
             var article = columns[i][j];
-            $("<a class=\"news_link\" href=\"/news/" + article._id + "\"><article><h1>" + article.title + "</h1><div class=\"article_content\">" + truncate(article.content, 200) + "</div><p>" + article.link + "</p></article></a>").appendTo($(this));
+            newArticleTag(article).appendTo($(this));
           }
         })
       });
+    }
+    function newArticleTag(article) {
+      var articleTag = $("<article><a><h1 /><div>");
+      articleTag.find("a").addClass("news_link").attr("href", "/news/" + article._id);
+      articleTag.find("h1").text(article.title);
+      articleTag.find("div").addClass("article_content").html(truncate(article.content, 200));
+      return articleTag;
     }
     function truncate(str, length) {
       var result = str.substring(0, length - 3);
@@ -78,8 +85,8 @@ block content
       } else {
         return result + '...';
       }
-    };
-    $("[id^='news_']").children("span").click(function(){
+    }
+    $("[id^='news_'] > span").click(function(){
       var span = $(this);
       if (span.hasClass("is-clicked")) {
         span.removeClass("is-clicked");
@@ -101,4 +108,15 @@ block content
       if (e.which === 13) {
         updateNews({ content: $(this).val() });
       } 
+    });
+    $("#filters").on("click", "li", function() {
+      var li = $(this);
+      $("[id^='news_'] > span").each(function() {
+        var span = $(this);
+        if (span.text() === li.text()) {
+          span.removeClass("is-clicked");
+        }
+      });
+      li.remove();
+      filterNews();
     });

@@ -16,6 +16,7 @@ article a.news_link:first-child
   border: 4px solid;
   border-radius: 2px;
   border-color: rgba(0, 0, 0, 0);
+  padding-left: 10px;
 }
 
 article a.news_link:first-child:hover{ /*只有上面部分有框*/
@@ -26,7 +27,7 @@ background-color: rgba(20, 138, 175, 0.17);
 }
  
 
-ul#filter{ height: 10%; }
+ul#filters{ height: 10%; }
 header{
   font-weight: bolder;
   background-color: rgba(47, 167, 158, 0.82);
@@ -48,17 +49,22 @@ header{
 }
 header li{
   display: inline-block;
-  line-height: 70px;
+  margin-top: 20px;
   margin-left: 10px; /*block置中*/
-  text-indent: 25px;
-
+  padding-left: 10px;
+  padding-right: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+header li:hover {
+  background-color: rgba(255, 255, 255, 0.3);
 }
 header input{ 
   margin-top: 20px;
 }
 /* aside 右手邊框框*/
 aside {
-  background-color: rgba(18, 119, 119, 0.76);
+  background-color: rgba(0, 135, 140, 1);
   font-size: 22px;
   margin-left: -20%;
   top: 0px;
@@ -85,6 +91,11 @@ section{
   font-size: 20px;
 }
 
+.column {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 #logo{
   width: 165px;
   margin: 15px;
@@ -92,17 +103,24 @@ section{
 }
 
 aside span{
- color: rgba(180, 245, 239, 0.8);
- width: 120px;
- margin-left: 15px;
- display: block; 
- font-size: 18px;
+  color: rgba(180, 245, 239, 0.8);
+  width: 120px;
+  margin-left: 5px;
+  padding-left: 10px;
+  display: block; 
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+aside span:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 #news_source, #news_date, #news_location{
-  padding:10px 0px 10px;
   color: #0D3453;
-  margin-left: 5px;
+  margin-left: 15px;
+  margin-top: 10px;
 }
 
 .is-clicked{
@@ -127,18 +145,19 @@ a.news_link:hover {
 ul.article_locations li{   
   display: inline-block;  /* 水平內顯示為區塊 */
   border: 2px solid #ccc;
+  margin-right: 5px;
   padding: 5px 10px;
   background-color: rgb(25, 164, 170);
   color: #E7F0E9;
   text-decoration: none;
   font-size: 15px;
   line-height: 21px;
+  cursor: pointer;
 } 
 
-ul li:hover{
+ul.article_locations li:hover{
    display: inline-block;
    border-color: #000080;
-   cursor: pointer;
 }
 
 div.article_content{
