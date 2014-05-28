@@ -29,7 +29,7 @@ background-color: rgba(20, 138, 175, 0.17);
 ul#filter{ height: 10%; }
 header{
   font-weight: bolder;
-  background-color: #FFF;
+  background-color: rgba(47, 167, 158, 0.82);
   margin-bottom: -20%;
   top: 0px;
   left: 0px;
@@ -76,7 +76,7 @@ main {
 
 #content {  /*中間放新聞處*/
   width: 80%;
-  padding-left: 5%
+  padding-left: 5%;
 }
 section
 {
@@ -122,3 +122,66 @@ a.news_link:hover {
   cursor: url('../images/pointer.jpg'), default;
   /*註：圖片有限制大小 要在128*128範圍內 */
 }
+ul.article_locations
+{
+  margin-left: 10px; 
+
+}
+
+ul li{   
+  display: inline-block;  /* 水平內顯示為區塊 */
+  border: 2px solid #ccc;
+  padding: 5px 10px;
+  background-color: rgb(25, 164, 170);
+  color: #E7F0E9;
+  text-decoration: none;
+  font-size: 15px;
+  line-height: 21px;
+} 
+ul li:hover
+{
+   display: inline-block;
+   border-color: #000080;
+}
+div.article_content
+{
+display: inline-block; 
+  width: 80%;
+  margin-bottom: 10px;
+}
+div p
+{
+  font-size: 20px;
+}
+article p /*單篇文章內的行與行間距*/
+{
+  display: inline-block; 
+  padding:5px 0px;
+}
+div label
+{
+display: inline-block; 
+margin:3px 8px 3px 50px;
+font-size: 15px;
+
+}
+button#add_location {
+  display: inline-block;
+   padding-left:2px; 
+   margin: 3px 4px 1px;
+   border-top: 1px solid #96d1f8;
+   background: #65a9d7;
+   border-radius: 3px;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   color: black;
+   text-align: middle;
+   }
+button#add_location:hover {
+   border-top-color: #28597a;
+   background: #28597a;
+   color: #ccc;
+   }
+button#add_location:active {
+   border-top-color: #1b435e;
+   background: #1b435e;
+   }
