@@ -138,6 +138,7 @@ ul.article_locations li{
 ul li:hover{
    display: inline-block;
    border-color: #000080;
+   cursor: pointer;
 }
 
 div.article_content{
@@ -149,6 +150,11 @@ div.article_content{
 
 div p{
   font-size: 20px;
+}
+
+article {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 article p {/*單篇文章內的行與行間距*/

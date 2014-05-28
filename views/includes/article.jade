@@ -2,7 +2,8 @@ mixin display_brief_article(article)
   a.news_link(href= "/news/" + article._id)
     article
       h1= article.title
-      .article_content!= article.content
+      //.article_content!= article.content
+      .article_content!= truncate(article.content, 200)
       p!= article.link
 
 mixin display_article(article)

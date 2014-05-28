@@ -38,6 +38,15 @@ app.locals.capitalize = function(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
+app.locals.truncate = function(string, length) {
+  var result = string.substring(0, length - 3);
+  if (result.lastIndexOf('>') < result.lastIndexOf('<')) {
+    return result.substring(0, result.lastIndexOf('<')) + '...';
+  } else {
+    return result + '...';
+  }
+};
+
 /// error handlers
 
 // development error handler

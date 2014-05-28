@@ -9,7 +9,18 @@ router.get('/:id(\\d+)', function(req, res, next) {
   Article.find({ _id: req.params.id }, function(err, articles) {
     if (err) console.error(err);
     if (articles.length === 0) next();
-    Filter.find({ type: "location" }, function(err, filters) {
+
+    Filter.find({
+      content: { $nin: articles[0].locations },
+      type: "location"
+    },
+    null,
+    {
+      sort: {
+        content: 1
+      }
+    },
+    function(err, filters) {
       if (err) console.error(err);
       res.render('news', {
         article: articles[0],
@@ -30,10 +41,12 @@ router.post('/:id(\\d+)/add_location/:location', function(req, res, next) {
     var article = articles[0];
     Filter.find({ content: req.params.location, type: "location" }, function(err, filters) {
       if (err) console.error(err);
-      if (filters.length === 0) res.end();
+      if (filters.length === 0) next();
+      if (article.locations.indexOf(_location) >= 0) {
+        res.end();
+        return;
+      }
 
-      var filter = filters[0];
-      if (article.locations.indexOf(filter) >= 0) res.end();
       article.update({ $push: { locations: _location } }, function(err) {
         if (err) console.error(err);
         res.json({ result: "success" });
@@ -53,8 +66,8 @@ router.delete("/:id(\\d+)/location/:location_id(\\d+)", function(req, res, next)
     var article = articles[0];
     if (locationId >= article.locations.length) next();
     article.update({ $pull: { locations: article.locations[locationId] } }, function(err) {
-        if (err) console.error(err);
-        res.json({ result: "success" });
+      if (err) console.error(err);
+      res.json({ result: "success" });
     });
   });
 });

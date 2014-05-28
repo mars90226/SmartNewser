@@ -66,11 +66,19 @@ block content
         $(".column").each(function(i) {
           for (var j in columns[i]) {
             var article = columns[i][j];
-            $("<a class=\"news_link\" href=\"/news/" + article._id + "\"><article><h1>" + article.title + "</h1><div class=\"article_content\">" + article.content + "</div><p>" + article.link + "</p></article></a>").appendTo($(this));
+            $("<a class=\"news_link\" href=\"/news/" + article._id + "\"><article><h1>" + article.title + "</h1><div class=\"article_content\">" + truncate(article.content, 200) + "</div><p>" + article.link + "</p></article></a>").appendTo($(this));
           }
         })
       });
     }
+    function truncate(str, length) {
+      var result = str.substring(0, length - 3);
+      if (result.lastIndexOf('>') < result.lastIndexOf('<')) {
+        return result.substring(0, result.lastIndexOf('<')) + '...';
+      } else {
+        return result + '...';
+      }
+    };
     $("[id^='news_']").children("span").click(function(){
       var span = $(this);
       if (span.hasClass("is-clicked")) {

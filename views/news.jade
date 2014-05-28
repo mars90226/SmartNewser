@@ -16,22 +16,34 @@ block content
         button#add_location 標記
 
   script.
+    function new_location_tag(new_location) {
+      return $("<li/>", { class: "article_location", text: new_location });
+    }
     $("#add_location").click(function() {
       var select = $("#locations");
       var new_location = select.val();
       $.post($(location).attr("pathname") + "/add_location/" + new_location, function(response) {
         if (response.result === "success") {
-          $(".article_locations").append($("<li>" + new_location + "</li>"));
+          $(".article_locations").append(new_location_tag(new_location));
+          select.find(":selected").remove();
+          select[0].selectedIndex = 0;
         }
       });
     });
-    $(".article_locations").click(".article_location", function(ev) {
-      var li = $(ev.target);
+    $(".article_locations").on("click", ".article_location", function(ev) {
+      var li = $(this);
       if (confirm("你確定要刪除此地點標記?")) {
         $.ajax($(location).attr("pathname") + "/location/" + li.index(), {
           type: "DELETE",
           success: function(response) {
             if (response.result === "success") {
+              var select = $('#locations');
+              select.append($("<option>" + li.text() + "</option>"));
+              $("#locations option").sort(function (a, b) {
+                return (a.innerHTML > b.innerHTML) ? 1 : -1;
+              }).appendTo(select);
+              select[0].selectedIndex = 0;
+
               li.remove();
             }
           }
