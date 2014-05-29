@@ -7,7 +7,9 @@ mixin sidebar(filters)
         each filter in filters
           if filter.type === filterType
             span= filter.content
+    a(href="/about") About
 
 mixin sidebarWithoutFilters
   aside
     img#logo(alt="icon", src="/images/logo.jpg")
+    a(href="/about") About

@@ -76,4 +76,8 @@ router.get('/list.json', function(req, res) {
   });
 });
 
+router.get('/about', function(req, res) {
+  res.render('about');
+});
+
 module.exports = router;

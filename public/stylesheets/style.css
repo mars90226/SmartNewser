@@ -40,7 +40,6 @@ header{
   overflow-x: auto;
   z-index:100; /*和層次有關*/    
   font-size: 20px;
-   
   /*box shadow*/
   -moz-box-shadow: 0 8px 10px -6px #8497AF; 
   -webkit-box-shadow: 0 8px 10px -6px #8497AF ;
@@ -113,11 +112,11 @@ aside span{
   border-radius: 5px;
 }
 
-aside span:hover {
+aside span:hover, aside a:hover {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-#news_source, #news_date, #news_location{
+#news_source, #news_date, #news_location, aside a{
   color: #0D3453;
   margin-left: 15px;
   margin-top: 10px;
@@ -165,6 +164,7 @@ div.article_content{
   width: 95%; /*單篇新聞占中間版面*/
   margin-bottom: 10px;
   text-indent: 40px;
+  text-align:justify;  /*左右對齊*/
 }
 
 div p{
@@ -214,3 +214,21 @@ button#add_location:active{
    border-top-color: #1b435e;
    background: #1b435e;
  }
+
+p.about,p.logo{
+  display: inline-block;
+  width:85%;
+  text-align: justify;
+  text-indent: 40px;
+}
+
+
+p.about span {
+  font-weight:bolder;
+  color:#9154EC;
+}
+
+p.logo span{
+ font-size: 12px;
+
+}
