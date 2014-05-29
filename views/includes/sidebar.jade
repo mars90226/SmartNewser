@@ -1,15 +1,17 @@
 mixin sidebar(filters)
   aside
-    img#logo(alt="icon", src="/images/logo.jpg")
+    a(href="/")
+      img#logo(alt="icon", src="/images/logo.jpg")
     each filterType in ["source", "date", "location"]
       div(id = "news_" + filterType)
         | #{capitalize(filterType)}
         each filter in filters
           if filter.type === filterType
             span= filter.content
-    a(href="/about") About
+    a(href="/about").about_link About
 
 mixin sidebarWithoutFilters
   aside
-    img#logo(alt="icon", src="/images/logo.jpg")
-    a(href="/about") About
+    a(href="/").logo_link
+      img#logo(alt="icon", src="/images/logo.jpg")
+    a(href="/about").about_link About
