@@ -3,6 +3,9 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Article = mongoose.model('Article');
 var Filter = mongoose.model('Filter');
+var User = mongoose.model('User');
+var UserArticle = mongoose.model('UserArticle');
+var utility = require('../utility');
 
 function getArticle(id, next, callback) {
   Article.find({ _id: id }, function(err, articles) {
@@ -14,12 +17,22 @@ function getArticle(id, next, callback) {
   });
 }
 
+function getUser(req, callback) {
+  User.findById(req.session.passport.user, function(err, user) {
+    if (err) {
+      console.error(err);
+    } else {
+      callback(user);
+    }
+  });
+}
+
 /* GET news. */
 router.get('/:id(\\d+)', function(req, res, next) {
   getArticle(req.params.id, next, function(article) {
     Filter.find({
       content: { $nin: article.locations },
-      type: "location"
+    type: "location"
     },
     null,
     {
@@ -71,21 +84,49 @@ router.delete("/:id(\\d+)/location/:location_id(\\d+)", function(req, res, next)
 });
 
 /* POST news/:id/upvote */
-router.post("/:id(\\d+)/upvote", function(req, res, next) {
+router.post("/:id(\\d+)/upvote", utility.ensureAuthenticated, function(req, res, next) {
   getArticle(req.params.id, next, function(article) {
-    article.update({ $inc: { score: 1 } }, function(err) {
-      if (err) console.log(err);
-      res.json({ result: "success" });
+    getUser(req, function(user) {
+      UserArticle.findOne({ userID: user._id, articleID: article._id }, function(err, userArticle) {
+        if (!err && userArticle === null) {
+          var userArticle = new UserArticle({
+            userID: user._id,
+            articleID: article._id
+          });
+          userArticle.save(function(err) {
+            if (err) {
+              console.error(err);
+            } else {
+              article.update({ $inc: { score: 1 } }, function(err) {
+                if (err) console.error(err);
+                res.json({ result: "success" });
+              });
+            }
+          });
+        }
+      });
     });
   });
 });
 
 /* POST news/:id/downvote */
-router.post("/:id(\\d+)/downvote", function(req, res, next) {
+router.post("/:id(\\d+)/downvote", utility.ensureAuthenticated, function(req, res, next) {
   getArticle(req.params.id, next, function(article) {
-    article.update({ $inc: { score: -1 } }, function(err) {
-      if (err) console.log(err);
-      res.json({ result: "success" });
+    getUser(req, function(user) {
+      UserArticle.findOne({ userID: user._id, articleID: article._id }, function(err, userArticle) {
+        if (!err && userArticle !== null) {
+          userArticle.remove(function(err) {
+            if (err) {
+              console.error(err);
+            } else {
+              article.update({ $inc: { score: -1 } }, function(err) {
+                if (err) console.error(err);
+                res.json({ result: "success" });
+              });
+            }
+          });
+        }
+      });
     });
   });
 });

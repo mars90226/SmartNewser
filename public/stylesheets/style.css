@@ -287,3 +287,38 @@ h1.article_title {
   color: #101F88;
   font-weight: bolder;
 }
+
+#login {
+  width: 300px;
+  height: 180px;
+  margin-top: 50px;
+  margin-left: 35%;
+  padding: 20px;
+  background-color: #F0FCFF;
+  border-radius: 10px;
+  box-shadow: 0 0 5px 0px #888;
+  text-align: center;
+}
+
+#login h1 {
+  margin-bottom: 25px;
+}
+
+#account {
+  width: 800px;
+  height: 600px;
+  margin-top: 50px;
+  margin-left: 20%;
+  padding: 20px;
+  background-color: #F0FCFF;
+  border-radius: 10px;
+  box-shadow: 0 0 5px 0px #888;
+}
+
+#login hr, #account hr {
+  border-color: #AAA;
+}
+
+#account h1 {
+  text-align: center;
+}

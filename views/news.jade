@@ -16,6 +16,7 @@ block content
         button#add_location 標記
 
   script.
+    var isLogin = #{isLogin};
     function new_location_tag(new_location) {
       return $("<li/>", { class: "article_location", text: new_location });
     }
@@ -51,6 +52,10 @@ block content
       }
     });
     $(".upvote").click(function() {
+      if (!isLogin) {
+        alert("Login first!");
+        return;
+      }
       $.post($(location).attr("pathname") + "/upvote", function(response) {
         if (response.result === "success") {
           $(".article_score").html(function(i, val) {
@@ -60,6 +65,10 @@ block content
       });
     });
     $(".downvote").click(function() {
+      if (!isLogin) {
+        alert("Login first!");
+        return;
+      }
       $.post($(location).attr("pathname") + "/downvote", function(response) {
         if (response.result === "success") {
           $(".article_score").html(function(i, val) {

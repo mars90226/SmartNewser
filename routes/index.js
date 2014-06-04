@@ -6,6 +6,7 @@ var Article = mongoose.model('Article');
 var Filter = mongoose.model('Filter');
 var User = mongoose.model('User');
 var article = require('../models/article');
+var utility = require('../utility');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -86,7 +87,7 @@ router.get('/login', function(req, res) {
   res.render('login');
 });
 
-router.get('/account', ensureAuthenticated, function(req, res) {
+router.get('/account', utility.ensureAuthenticated, function(req, res) {
   User.findById(req.session.passport.user, function(err, user) {
     if (err) {
       console.error(err);
@@ -100,12 +101,5 @@ router.get('/logout', function(req, res) {
   req.logout();
   res.redirect('/');
 });
-
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/login');
-}
 
 module.exports = router;
