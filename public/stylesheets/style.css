@@ -3,6 +3,8 @@
 body {
   font-family: "微軟正黑體", "Microsoft JhengHei", "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #F4F4F4;
+  background-image:url('../images/back.png'); /*背景圖*/
+  background-size: cover;/*背景圖大小調整*/
  }
 
 .more a{  /* 因為繼續閱讀是個超連結，要用a來定義 */
@@ -117,7 +119,7 @@ aside span:hover, aside a.about_link:hover {
 }
 
 #news_source, #news_date, #news_location, aside a.about_link {
-  color: #0D3453;
+  color: #030E18;
   margin-left: 15px;
   margin-top: 10px;
 }
@@ -231,5 +233,16 @@ p.about span {
 
 p.logo span{
  font-size: 12px;
-
 }
+#content h1{
+  color:#F08018;
+  font-weight: bolder;
+}
+#content h1 span {
+  color:#FF0000;
+}
+#content h2{
+  color: #101F88;
+  font-weight: bolder;
+}
+
