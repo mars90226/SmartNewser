@@ -31,7 +31,8 @@ router.get('/:id(\\d+)', function(req, res, next) {
       if (err) console.error(err);
       res.render('news', {
         article: article,
-        locations: filters
+        locations: filters,
+        isLogin: req.isAuthenticated()
       });
     });
   });

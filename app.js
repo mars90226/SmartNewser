@@ -6,9 +6,14 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var passport = require('passport');
+
+require('./passport');
 
 var routes = require('./routes/index');
 var newsRoutes = require('./routes/news');
+var authRoutes = require('./routes/auth');
 
 var app = express();
 
@@ -21,10 +26,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
+app.use(session({ secret: 'smart newser secret' }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', routes);
 app.use('/news/', newsRoutes);
+app.use('/auth/', authRoutes);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

@@ -4,6 +4,7 @@ var async = require('async');
 var mongoose = require('mongoose');
 var Article = mongoose.model('Article');
 var Filter = mongoose.model('Filter');
+var User = mongoose.model('User');
 var article = require('../models/article');
 
 /* GET home page. */
@@ -57,7 +58,8 @@ router.get('/', function(req, res) {
           res.render('index', {
             columns: columns,
             builtinFilters: filters,
-            filters: queryFilters
+            filters: queryFilters,
+            isLogin: req.isAuthenticated()
           });
         });
       });
@@ -79,5 +81,31 @@ router.get('/list.json', function(req, res) {
 router.get('/about', function(req, res) {
   res.render('about');
 });
+
+router.get('/login', function(req, res) {
+  res.render('login');
+});
+
+router.get('/account', ensureAuthenticated, function(req, res) {
+  User.findById(req.session.passport.user, function(err, user) {
+    if (err) {
+      console.error(err);
+    } else {
+      res.render('account', { user: req.user });
+    }
+  });
+});
+
+router.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/');
+});
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login');
+}
 
 module.exports = router;

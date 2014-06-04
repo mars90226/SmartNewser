@@ -114,11 +114,11 @@ aside span{
   border-radius: 5px;
 }
 
-aside span:hover, aside a.about_link:hover {
+aside span:hover, .sidebar_link a:hover {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-#news_source, #news_date, #news_location, aside a.about_link {
+#news_source, #news_date, #news_location, .sidebar_link a {
   color: #030E18;
   margin-left: 15px;
   margin-top: 10px;
@@ -135,7 +135,14 @@ a.news_link, a.news_link:hover, a.news_link:visited, a.news_link:active, a.news_
   text-decoration: none;
   color: #000;
 }
-a.about_link:hover {
+
+.sidebar_link a {
+  display: block;
+  width: 6em;
+  text-align: center;
+  border-radius: 5px;
+}
+.sidebar_link a:hover {
   text-decoration: none;
 }
 /*超連結 滑鼠移過去時的樣式*/

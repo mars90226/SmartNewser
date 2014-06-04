@@ -1,0 +1,10 @@
+extends layout
+
+include includes/sidebar
+
+block content
+  main
+    mixin sidebarWithoutFilters(false)
+    #content
+      h1 Login
+      a(href="/auth/facebook") Login via Facebook

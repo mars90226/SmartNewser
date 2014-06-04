@@ -1,4 +1,13 @@
-mixin sidebar(filters)
+mixin sidebarCommonPart(isLogin)
+  .sidebar_link
+    a(href="/about").about_link About
+    if isLogin
+      a(href="/account") Account
+      a(href="/logout") Logout
+    else
+      a(href="/login") Login
+
+mixin sidebar(filters, isLogin)
   aside
     a(href="/")
       img#logo(alt="icon", src="/images/logo.jpg")
@@ -9,11 +18,11 @@ mixin sidebar(filters)
           each filter in filters
             if filter.type === filterType
               span= filter.content
-      a(href="/about").about_link About
+      mixin sidebarCommonPart(isLogin)
 
-mixin sidebarWithoutFilters
+mixin sidebarWithoutFilters(isLogin)
   aside
     a(href="/").logo_link
       img#logo(alt="icon", src="/images/logo.jpg")
     #sidebar_content
-      a(href="/about").about_link About
+      mixin sidebarCommonPart(isLogin)

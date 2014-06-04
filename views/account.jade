@@ -1,0 +1,15 @@
+extends layout
+
+include includes/sidebar
+
+block content
+  main
+    mixin sidebarWithoutFilters(true)
+    #content
+      h1 Account
+      p.lead Hi #{user.name}! This is your account page.
+      a(href="/") Go home
+      br
+      a(href="/auth/facebook") Login via Facebook
+      br
+      a(href="/logout") Logout

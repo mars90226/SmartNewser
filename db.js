@@ -15,3 +15,4 @@ mongoose.connection.once('open', function(err) {
 
 require('./models/article');
 require('./models/filter');
+require('./models/user');
