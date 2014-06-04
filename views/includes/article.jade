@@ -8,7 +8,12 @@ mixin display_brief_article(article)
 
 mixin display_article(article)
   article
-    h1= article.title
+    .title_bar
+      h1.article_title= article.title
+      .votebox
+        .upvote
+        span.article_score= article.score
+        .downvote
     .article_content!= article.content
     p!= article.link
     ul.article_locations

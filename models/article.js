@@ -8,7 +8,7 @@ var ArticleSchema = new Schema({
   time: { type: Date, required: true },
   link: { type: String, required: true },
   source: { type: String, required: true },
-  scores: { type: Number, default: 0 },
+  score: { type: Number, default: 0 },
   locations: []
 });
 

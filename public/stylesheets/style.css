@@ -231,5 +231,39 @@ p.about span {
 
 p.logo span{
  font-size: 12px;
+}
 
+.title_bar {
+  margin-bottom: 10px;
+}
+
+h1.article_title {
+  display: inline-block;
+}
+
+.votebox {
+  display: inline-block;
+  position: relative;
+  top: -5px;
+  left: 20px;
+  height: 60px;
+  text-align: center;
+}
+
+.upvote {
+  border-bottom: 12px solid #555;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+}
+
+.downvote {
+  border-top: 12px solid #555;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+}
+
+.article_score {
+  display: inline-block;
+  margin: 0 auto;
+  font-size: 24px;
 }
