@@ -50,3 +50,21 @@ block content
         })
       }
     });
+    $(".upvote").click(function() {
+      $.post($(location).attr("pathname") + "/upvote", function(response) {
+        if (response.result === "success") {
+          $(".article_score").html(function(i, val) {
+            return +val+1;
+          });
+        }
+      });
+    });
+    $(".downvote").click(function() {
+      $.post($(location).attr("pathname") + "/downvote", function(response) {
+        if (response.result === "success") {
+          $(".article_score").html(function(i, val) {
+            return +val-1;
+          });
+        }
+      });
+    });

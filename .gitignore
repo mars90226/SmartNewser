@@ -1,3 +1,5 @@
 node_modules/
 
+data/db/mongod.lock
 data/dump/
+data/mongolab_dump/
