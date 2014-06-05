@@ -88,21 +88,35 @@ router.post("/:id(\\d+)/upvote", utility.ensureAuthenticated, function(req, res,
   getArticle(req.params.id, next, function(article) {
     getUser(req, function(user) {
       UserArticle.findOne({ userID: user._id, articleID: article._id }, function(err, userArticle) {
-        if (!err && userArticle === null) {
-          var userArticle = new UserArticle({
-            userID: user._id,
-            articleID: article._id
-          });
-          userArticle.save(function(err) {
-            if (err) {
-              console.error(err);
-            } else {
-              article.update({ $inc: { score: 1 } }, function(err) {
-                if (err) console.error(err);
-                res.json({ result: "success" });
-              });
-            }
-          });
+        if (!err) {
+          if (userArticle === null) {
+            var userArticle = new UserArticle({
+              userID: user._id,
+              articleID: article._id,
+              type: "like"
+            });
+            userArticle.save(function(err) {
+              if (err) {
+                console.error(err);
+              } else {
+                article.update({ $inc: { score: 1 } }, function(err) {
+                  if (err) console.error(err);
+                  res.json({ result: "success" });
+                });
+              }
+            });
+          } else if (userArticle.type === "dislike") {
+            userArticle.remove(function(err) {
+              if (err) {
+                console.error(err);
+              } else {
+                article.update({ $inc: { score: 1 } }, function(err) {
+                  if (err) console.error(err);
+                  res.json({ result: "success" });
+                });
+              }
+            });
+          }
         }
       });
     });
@@ -114,17 +128,35 @@ router.post("/:id(\\d+)/downvote", utility.ensureAuthenticated, function(req, re
   getArticle(req.params.id, next, function(article) {
     getUser(req, function(user) {
       UserArticle.findOne({ userID: user._id, articleID: article._id }, function(err, userArticle) {
-        if (!err && userArticle !== null) {
-          userArticle.remove(function(err) {
-            if (err) {
-              console.error(err);
-            } else {
-              article.update({ $inc: { score: -1 } }, function(err) {
-                if (err) console.error(err);
-                res.json({ result: "success" });
-              });
-            }
-          });
+        if (!err) {
+          if (userArticle === null) {
+            var userArticle = new UserArticle({
+              userID: user._id,
+              articleID: article._id,
+              type: "dislike"
+            });
+            userArticle.save(function(err) {
+              if (err) {
+                console.error(err);
+              } else {
+                article.update({ $inc: { score: -1 } }, function(err) {
+                  if (err) console.error(err);
+                  res.json({ result: "success" });
+                });
+              }
+            });
+          } else if (userArticle.type === "like") {
+            userArticle.remove(function(err) {
+              if (err) {
+                console.error(err);
+              } else {
+                article.update({ $inc: { score: -1 } }, function(err) {
+                  if (err) console.error(err);
+                  res.json({ result: "success" });
+                });
+              }
+            });
+          }
         }
       });
     });

@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 var UserArticleSchema = new Schema({
   userID: Schema.Types.ObjectId,
-  articleID: Number
+  articleID: Number,
+  type: String
 });
 
 var UserArticle = mongoose.model('UserArticle', UserArticleSchema);

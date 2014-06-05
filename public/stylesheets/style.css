@@ -259,6 +259,10 @@ h1.article_title {
   text-align: center;
 }
 
+.upvote, .downvote {
+  cursor: pointer;
+}
+
 .upvote {
   border-bottom: 12px solid #555;
   border-left: 12px solid transparent;
